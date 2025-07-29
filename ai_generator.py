@@ -7,7 +7,9 @@ from dotenv import load_dotenv
 # Încarcă cheia din mediu
 load_dotenv()
 
-client = OpenAI(api_key=os.getenv("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"))
+client = OpenAI(
+    api_key=os.getenv("OPENAI_API_KEY")
+)
 
 def genereaza_deviz_AI(descriere, dimensiuni, baza_date_df):
     # Limităm promptul la 30 de rânduri
