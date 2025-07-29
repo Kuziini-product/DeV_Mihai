@@ -22,10 +22,8 @@ def export_excel_pdf(df, descriere, nume_client, dimensiuni, telefon_client, poz
     excel_path = os.path.join(ISTORIC_FOLDER, f"{nume_fisier_base}.xlsx")
     df.to_excel(excel_path, index=False)
 
-    # Total
     total = pd.to_numeric(df[df.columns[-1]], errors='coerce').sum()
 
-    # PDF
     pdf_path = os.path.join(ISTORIC_FOLDER, f"{nume_fisier_base}.pdf")
     pdf = FPDF()
     pdf.add_page()
@@ -47,7 +45,6 @@ def export_excel_pdf(df, descriere, nume_client, dimensiuni, telefon_client, poz
     pdf.cell(200, 10, txt=safe(f"Total estimativ: {total:.2f} lei"), ln=True, align="R")
     pdf.output(pdf_path)
 
-    # JSON metadata
     json_path = os.path.join(ISTORIC_FOLDER, f"{nume_fisier_base}.json")
     meta = {
         "nume_client": nume_client,
@@ -61,3 +58,6 @@ def export_excel_pdf(df, descriere, nume_client, dimensiuni, telefon_client, poz
         json.dump(meta, f, ensure_ascii=False, indent=2)
 
     return pdf_path, total, nume_fisier_base
+
+def lista_oferte_istoric():
+    return sorted([f for f in os.listdir(ISTORIC_FOLDER) if f.endswith(".pdf")])
