@@ -5,8 +5,8 @@ fpdf
 pytesseract
 pillow
 python-dotenv
-streamlit-webrtc
 speechrecognition
-pyaudio
 numpy
-av
+openpyxl
+# streamlit-webrtc (doar dacă funcționează)
+# av (opțional, risc de eșec)
