@@ -1,18 +1,17 @@
+
 from openai import OpenAI
 import pandas as pd
 import os
 from dotenv import load_dotenv
 
-# Încarcă variabilele din fișierul .env
+# Încarcă cheia din mediu
 load_dotenv()
 
-# Creează clientul OpenAI cu cheia din mediu
-client = OpenAI(
-    api_key=os.getenv("OPENAI_API_KEY")
-)
+client = OpenAI(api_key=os.getenv("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"))
 
 def genereaza_deviz_AI(descriere, dimensiuni, baza_date_df):
-    tabel_text = baza_date_df.to_csv(index=False)
+    # Limităm promptul la 30 de rânduri
+    tabel_text = baza_date_df.head(30).to_csv(index=False)
 
     prompt = f"""
 Avem următoarea bază de date cu materiale și prețuri:
@@ -35,7 +34,7 @@ Dimensiuni: {dimensiuni}
 """
 
     chat_response = client.chat.completions.create(
-        model="gpt-4",
+        model="gpt-3.5-turbo",
         messages=[{"role": "user", "content": prompt}],
         temperature=0.4
     )
